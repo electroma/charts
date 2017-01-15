@@ -87,7 +87,9 @@ The following tables lists the configurable parameters of the Traefik chart and 
 | `acme.persistence.size`         | Minimum size of the volume requested                                 | `1Gi`                                     |
 | `dashboard.enabled`             | Whether to enable the Traefik dashboard                              | `false`                                   |
 | `dashboard.domain`              | Domain for the Traefik dashboard                                     | `traefik.example.com`                     |
-| `gzip.enabled`                  | Whether to use gzip compression                                      | `true`                     |
+| `gzip.enabled`                  | Whether to use gzip compression                                      | `true`                                    |
+| `kubernetes.namespaces`         | List of Kubernetes namespaces to watch                               | `~`                                       |
+| `kubernetes.labelSelector`      | Valid Kubernetes ingress label selector to watch                     | `~`                                       |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
