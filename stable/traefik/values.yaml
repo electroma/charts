@@ -26,3 +26,6 @@ dashboard:
   domain: traefik.example.com
 gzip:
   enabled: true
+kubernetes:
+  namespaces: ~
+  labelSelector: ~
