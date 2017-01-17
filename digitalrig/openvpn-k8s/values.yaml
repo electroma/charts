@@ -36,12 +36,10 @@ openvpn:
     dhPem:
     # Base64 of p12 certificate store
     certsP12:
-    # Base64 of server dh
-    dhPem:
-    # Base64 of p12 certificate store
-    certs.p12:
     # Base64 of password (pass123 is default)
-    ldap.pass: cGFzczEyMwo=
+    ldapPass: cGFzczEyMwo=
+    rawOpts:
+      value:
 
 k8s:
   network: 172.20.0.0

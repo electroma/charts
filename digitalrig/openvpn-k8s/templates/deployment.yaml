@@ -51,6 +51,8 @@ spec:
               value: "{{ .Values.openvpn.auth.cert }}"
             - name: REQUIRE_PAM
               value: "{{ .Values.openvpn.auth.ldap }}"
+            - name: MORE_OPTS
+{{ toYaml .Values.openvpn.rawOpts | indent 14}}
           ports:
             - name: openvpn
               containerPort: {{ .Values.service.internalPort }}
