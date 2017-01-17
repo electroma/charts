@@ -1,0 +1,16 @@
+= Helm chart for OpenVPN Server with support of client certificate and/or LDAP name/password authentication
+
+== Installation
+
+. Clone this repo (we do not have public helm repo server)
+. Configure variables
+.. Generate server certificate and key
+.. Configure K8S and LDAP parameters
+. Install chart `$REPO_PATH/digitalrig/openvpn-k8s -f your_vars.yaml`
+
+== Some useful links
+
+* https://wiki.debian.org/LDAP/PAM[Dedian wiki / LDAP PAM]
+* https://wiki.debian.org/LDAP/LDAPUtils[Dedian wiki / LDAPUtils]
+* https://www.linuxsysadmintutorials.com/setup-pam-authentication-with-openvpns-auth-pam-module[How to configure OpenVPN PAM]
+* https://linux.die.net/man/5/pam_ldap[pam_ldap man page]
