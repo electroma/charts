@@ -1,0 +1,68 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+          env:
+            - name: OVPN_NETWORK
+              value: {{ .Values.openvpn.network }}
+            - name: OVPN_SUBNET
+              value: {{ .Values.openvpn.subnet }}
+            - name: OVPN_PROTO
+              value: {{ .Values.openvpn.proto }}
+            - name: OVPN_K8S_SERVICE_NETWORK
+              value: {{ .Values.k8s.network }}
+            - name: OVPN_K8S_SERVICE_SUBNET
+              value: {{ .Values.k8s.subnet }}
+            - name: OVPN_K8S_POD_NETWORK
+              value: {{ .Values.k8s.pod.network }}
+            - name: OVPN_K8S_POD_SUBNET
+              value: {{ .Values.k8s.pod.subnet }}
+            - name: LDAP_URL
+              value: {{ .Values.ldap.url }}
+            - name: LDAP_BASE_NAME
+              value: {{ .Values.ldap.basename }}
+            - name: LDAP_BIND_NAME
+              value: {{ .Values.ldap.bindname }}
+            - name: LDAP_BIND_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: ldap.pass
+            - name: LDAP_LOGIN_ATTR
+              value: {{ .Values.ldap.loginattr }}
+            - name: REQUIRE_CERT
+              value: "{{ .Values.openvpn.auth.cert }}"
+            - name: REQUIRE_PAM
+              value: "{{ .Values.openvpn.auth.ldap }}"
+          ports:
+            - name: openvpn
+              containerPort: {{ .Values.service.internalPort }}
+          volumeMounts:
+            - mountPath: /etc/openvpn/pki
+              name: openvpn
+      volumes:
+        - name: openvpn
+          secret:
+            secretName: {{ template "fullname" . }}
+            items:
+              - key: certs.p12
+                path: certs.p12
+              - key: dh.pem
+                path: dh.pem

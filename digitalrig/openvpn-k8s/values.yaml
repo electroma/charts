@@ -1,0 +1,59 @@
+# Default values for openvpn-k8s.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+image:
+  repository: builditdigital/openvpn-k8s
+  tag: latest
+  pullPolicy: Always
+service:
+  name: openvpn
+  type: LoadBalancer
+  externalPort: 443
+  internalPort: 443
+  protocol: tcp
+resources:
+  limits:
+    cpu: 200m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+openvpn:
+    # Auth requirements
+    auth:
+      # client certificate
+      cert: true
+      # pam_ldap login/password
+      ldap: false
+    # Network allocated for openvpn clients (default: 10.240.0.0).
+    network: 10.240.0.0
+    # Network subnet allocated for openvpn client (default: 255.255.0.0).
+    subnet:  255.255.0.0
+    # Protocol used by openvpn tcp or udp (default: udp).
+    proto: tcp
+    # Base64 of server dh
+    dhPem:
+    # Base64 of p12 certificate store
+    certsP12:
+    # Base64 of server dh
+    dhPem:
+    # Base64 of p12 certificate store
+    certs.p12:
+    # Base64 of password (pass123 is default)
+    ldap.pass: cGFzczEyMwo=
+
+k8s:
+  network: 172.20.0.0
+  subnet: 255.255.0.0
+  pod:
+    # Kubernetes pod network (optional).
+    network: 10.0.0.0
+    # Kubernetes pod network subnet (optional).
+    subnet: 255.0.0.0
+
+ldap:
+  url: ldap://10.10.243.23
+  basename: CN=Users,dc=corp,dc=riglet,dc=io
+  bindname: CN=ROUSER,CN=Users,DC=corp,DC=riglet,DC=io
+  loginattr: CN

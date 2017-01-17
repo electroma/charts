@@ -1,0 +1,14 @@
+apiVersion: v1
+description: A Helm chart to install an openvpn server with client certificate and / or LDAP authentication
+name: openvpn
+version: 1.0.0
+maintainers:
+  - name: Roman Safronov
+    email: electroma@gmail.com
+keywords:
+  - openvpn
+  - vpn
+  - tunnel
+  - network
+  - ldap
+  - pam
