@@ -1,6 +1,8 @@
 # Default values for Traefik
 imageTag: v1.1.2
 serviceType: LoadBalancer
+# nodePort:
+# nodeSslPort:
 cpuRequest: 100m
 memoryRequest: 20Mi
 cpuLimit: 100m
