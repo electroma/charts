@@ -19,10 +19,8 @@ spec:
     nodePort: {{ .Values.nodePort }}
 {{- end }}
     name: http
-{{- if .Values.ssl.enabled }}
   - port: 443
 {{- if .Values.nodePort }}
     nodePort: {{ .Values.nodeSslPort }}
 {{- end }}
     name: https
-{{- end }}
