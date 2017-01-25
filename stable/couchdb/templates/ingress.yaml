@@ -1,0 +1,19 @@
+{{- if .Values.service.hostName }}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "fullname" . }}-dashboard
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  rules:
+  - host: {{ .Values.service.hostName }}
+    http:
+      paths:
+      - backend:
+          serviceName: {{ template "fullname" . }}
+          servicePort: couchdb
+{{- end }}

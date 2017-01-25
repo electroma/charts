@@ -1,0 +1,12 @@
+apiVersion: v1
+description: A Helm chart for CouchDB
+name: couchdb
+version: 0.1.0
+keywords:
+- couchdb
+- database
+- nosql
+maintainers:
+- name: Roman Safronov
+  email: electroma@gmail.com
+
