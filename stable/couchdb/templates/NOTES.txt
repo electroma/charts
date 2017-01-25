@@ -1,0 +1,8 @@
+CouchDB can be accessed via port 5984 on the following DNS name from within your cluster:
+{{ template "fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
+
+{{- if .Values.service | and .Values.service.hostName }}
+
+Database is accessible remotely using name {{ .Values.service.hostName }}.
+Note: Ingress controller must be configured in your cluster.
+{{- end }}
