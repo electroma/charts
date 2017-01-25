@@ -1,0 +1,28 @@
+# Default values for couchdb chart
+image:
+  repository: couchdb
+  tag: 1.6
+  pullPolicy: IfNotPresent
+couchdb:
+  cors: true
+  corsOrigins: *://localhost:*, *://*.local, *://*.riglet
+  #adminUser:
+  #adminPass:
+persistence:
+  enabled: true
+  storageClass: generic
+  accessMode: ReadWriteOnce
+  size: 8Gi
+
+service:
+  type: ClusterIP
+  hostName: couchdb.kube.local
+
+resources:
+  limits:
+    cpu: 400m
+    memory: 256Mi
+  requests:
+    cpu: 200m
+    memory: 128Mi
+

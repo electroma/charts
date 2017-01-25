@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+data:
+  {{- if .Values.couchdb | and .Values.couchdb.cors }}
+  enable_cors.ini: |
+    [cors]
+    credentials = true
+    ; List of origins separated by a comma, * means accept all
+    ; Origins must include the scheme: http://example.com
+    ; You can’t set origins: * and credentials = true at the same time.
+    origins = {{ default "*" .Values.couchdb.cors_origins }}
+    ; List of accepted headers separated by a comma
+    headers = accept, authorization, content-type, origin, referer, cache-control, x-requested-with
+    ; List of accepted methods
+    methods = GET, PUT, POST, HEAD, DELETE
+
+    [httpd]
+    enable_cors = true
+  {{- end -}}

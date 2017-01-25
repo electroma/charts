@@ -1,0 +1,65 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 5984
+          name: couchdb
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5984
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5984
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+        {{- if .Values.couchdb | and .Values.couchdb.adminUser }}
+        env:
+        - name: COUCHDB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "fullname" . }}
+              key: couchdb-admin-user
+        - name: COUCHDB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "fullname" . }}
+              key: couchdb-admin-pass
+        {{- end }}
+        volumeMounts:
+        - mountPath: /usr/local/etc/couchdb/local.d
+          name: localconfig
+        - mountPath: /usr/local/var/lib/couchdb
+          name: data
+        resources:
+{{ toYaml .Values.resources | indent 12 }}
+      volumes:
+      - name: localconfig
+        configMap:
+          name: {{ template "fullname" . }}
+      - name: data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "fullname" . }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
