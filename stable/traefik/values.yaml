@@ -26,6 +26,7 @@ dashboard:
   domain: traefik.example.com
 gzip:
   enabled: true
-kubernetes:
-  namespaces: ~
-  labelSelector: ~
+# Kubernetes ingress filters
+#kubernetes:
+#  namespaces:
+#  labelSelector:
