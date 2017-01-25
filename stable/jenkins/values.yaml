@@ -24,6 +24,8 @@ Master:
 # HostName: jenkins.cluster.local
   ContainerPort: 8080
   SlaveListenerPort: 50000
+  LoadBalancerSourceRanges:
+  - 0.0.0.0/0
 
 Agent:
   Image: jenkinsci/jnlp-slave
