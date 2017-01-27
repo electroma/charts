@@ -5,7 +5,7 @@ image:
   pullPolicy: IfNotPresent
 couchdb:
   cors: true
-  corsOrigins: *://localhost:*, *://*.local, *://*.riglet
+  corsOrigins: "*://localhost:*, *://*.local:32123, *://*.riglet"
   #adminUser:
   #adminPass:
 persistence:
