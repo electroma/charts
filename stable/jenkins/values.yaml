@@ -22,6 +22,7 @@ Master:
   ServiceType: LoadBalancer
 # Used to create Ingress record (should used with ServiceType: ClusterIP)
 # HostName: jenkins.cluster.local
+# NodePort: <to set explicitly, choose port between 30000-32767
   ContainerPort: 8080
   SlaveListenerPort: 50000
   LoadBalancerSourceRanges:
