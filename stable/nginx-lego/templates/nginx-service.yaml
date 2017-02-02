@@ -8,8 +8,14 @@ spec:
   type: {{ .Values.nginx.service.type | quote }}
   ports:
   - port: 80
+    {{- if .Values.service | and .Values.service.nodePort }}
+    nodePort: {{ .Values.service.nodePort }}
+    {{- end }}
     name: http
   - port: 443
+    {{- if .Values.service | and .Values.service.nodeSslPort }}
+    nodePort: {{ .Values.service.nodeSslPort }}
+    {{- end }}
     name: https
   selector:
     app: {{ template "fullname" . }}
