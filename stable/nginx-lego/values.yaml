@@ -12,6 +12,9 @@ nginx:
     pullPolicy: IfNotPresent
   service:
     type: LoadBalancer
+    # Configuration specific for service type NodePort
+    #nodePort: 32123
+    #nodeSslPort: 12321
   monitoring: false
   resources:
     limits:
