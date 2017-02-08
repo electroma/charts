@@ -17,5 +17,9 @@ spec:
     nodePort: {{ .Values.nginx.service.nodeSslPort }}
     {{- end }}
     name: https
+  {{- if .Values.nginx.monitoring }}
+  - port: 18080
+    name: monitoring
+  {{- end }}
   selector:
     app: {{ template "fullname" . }}

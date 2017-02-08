@@ -28,11 +28,14 @@ spec:
         - containerPort: 80
         - containerPort: 443
 {{- if .Values.nginx.monitoring }}
-        - containerPort: 8080
+        - containerPort: 18080
 {{- end }}
         resources:
 {{ toYaml .Values.nginx.resources | indent 10 }}
         args:
         - /nginx-ingress-controller
         - --default-backend-service={{ .Release.Namespace }}/{{ template "fullname" . }}-default-backend
-        - --nginx-configmap={{ .Release.Namespace }}/{{ template "fullname" . }}
+        - --configmap={{ .Release.Namespace }}/{{ template "fullname" . }}
+{{- if .Values.nginx.watchNamespace }}
+        - --watch-namespace={{ .Values.nginx.watchNamespace }}
+{{- end }}
