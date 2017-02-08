@@ -11,5 +11,9 @@ spec:
     name: http
   - port: 443
     name: https
+  {{- if .Values.nginx.monitoring }}
+  - port: 18080
+    name: monitoring
+  {{- end }}
   selector:
     app: {{ template "fullname" . }}

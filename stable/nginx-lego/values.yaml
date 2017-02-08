@@ -12,6 +12,13 @@ nginx:
     pullPolicy: IfNotPresent
   service:
     type: LoadBalancer
+    # Configuration specific for service type NodePort
+    #nodePort: 32123
+    #nodeSslPort: 12321
+  # Allows to limit namespace to watch
+  # For now this filter must match target namespace of the chart
+  # TODO: need to raise issue with nginx ingress. Nginx configmap must be placed in the same namespace
+  # watchNamespace: public
   monitoring: false
   resources:
     limits:
