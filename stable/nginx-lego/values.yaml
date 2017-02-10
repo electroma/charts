@@ -19,6 +19,8 @@ nginx:
   # For now this filter must match target namespace of the chart
   # TODO: need to raise issue with nginx ingress. Nginx configmap must be placed in the same namespace
   # watchNamespace: public
+    # annotations:
+    #   key: value
   monitoring: false
   resources:
     limits:
