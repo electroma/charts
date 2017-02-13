@@ -2,6 +2,7 @@
 imageTag: v1.1.2
 serviceType: LoadBalancer
 serviceAnnotations:
+replicas: 1
 cpuRequest: 100m
 memoryRequest: 20Mi
 cpuLimit: 100m
