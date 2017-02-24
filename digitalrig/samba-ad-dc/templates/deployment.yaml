@@ -37,8 +37,6 @@ spec:
           value: {{ .Values.ad.realm }}
         - name: SAMBA_PASSWORD
           value: {{ .Values.ad.password }}
-        - name: SAMBA_PASSWORD
-          value: {{ .Values.ad.password }}
         {{- if not .Values.ad.strictTls }}
         - name: SAMBA_NO_TLS
           value: "yes"
