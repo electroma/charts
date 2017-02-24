@@ -53,6 +53,8 @@ spec:
               value: "{{ .Values.openvpn.auth.ldap }}"
             - name: MORE_OPTS
 {{ toYaml .Values.openvpn.rawOpts | indent 14}}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
           ports:
             - name: openvpn
               containerPort: {{ .Values.service.internalPort }}
