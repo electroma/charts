@@ -12,9 +12,6 @@ service:
   externalPort: 389
   internalPort: 389
 resources:
-  limits:
-    cpu: 100m
-    memory: 96Mi
   requests:
     cpu: 100m
     memory: 64Mi
